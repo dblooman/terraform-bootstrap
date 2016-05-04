@@ -29,7 +29,54 @@ module "subnets" {
 
 module "nats" {
   source =  "../modules/nats"
-  aws_subnet_public_subnet_a_id = "${module.subnets.public_subnet_a_id}"
-  aws_subnet_public_subnet_b_id = "${module.subnets.public_subnet_b_id}"
+  public_subnet_a_id = "${module.subnets.public_subnet_a_id}"
+  public_subnet_b_id = "${module.subnets.public_subnet_b_id}"
   aws_vpc_id = "${aws_vpc.production.id}"
 }
+
+/*module "sentry" {
+  source = "../modules/sentry"
+
+  aws_vpc_id = "${aws_vpc.production.id}"
+  vpc_dns_zone_id = "${aws_route53_zone.production.zone_id}"
+
+  private_subnet_a_id = "${module.subnets.private_subnet_a_id}"
+  private_subnet_b_id = "${module.subnets.private_subnet_b_id}"
+  private_subnet_c_id = "${module.subnets.private_subnet_c_id}"
+
+  public_subnet_a_id = "${module.subnets.public_subnet_a_id}"
+  public_subnet_b_id = "${module.subnets.public_subnet_b_id}"
+  public_subnet_c_id = "${module.subnets.public_subnet_c_id}"
+
+  cache_node_type   = "cache.t2.small"
+  db_instance_class = "db.t2.micro"
+  instance_type     = "t2.medium"
+
+  sentry_ami              = "ami-id"
+  sentry_db_root_password = "password"
+
+}*/
+
+/*module "nexus" {
+  source = "../modules/nexus"
+
+  vpc_id     = "${var.shared_services_vpc_id}"
+  production_vpc_dns_zone_id = "${aws_route53_zone.production.zone_id}"
+
+  private_subnet_a_id = "${module.subnets.private_subnet_a_id}"
+  private_subnet_b_id = "${module.subnets.private_subnet_b_id}"
+  private_subnet_c_id = "${module.subnets.private_subnet_c_id}"
+
+  public_subnet_a_id = "${module.subnets.public_subnet_a_id}"
+  public_subnet_b_id = "${module.subnets.public_subnet_b_id}"
+  public_subnet_c_id = "${module.subnets.public_subnet_c_id}"
+
+  instance_type = "t2.medium"
+
+  nexus_ami = "ami-id"
+  key_name = "key-name"
+
+  availability_zones = "eu-west-1a,eu-west-1b,eu-west-1c"
+
+  s3_bucket = "bucket-name"
+}*/
